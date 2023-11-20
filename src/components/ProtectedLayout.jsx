@@ -5,8 +5,8 @@ import { AppBar } from "./AppBar";
 export const ProtectedLayout = () => {
   const { user } = useAuth();
   const outlet = useOutlet();
-
-  if (!user) {
+  const accessToken = localStorage.getItem("access_token");
+  if (!user || !accessToken) {
     return <Navigate to="/" />;
   }
 
@@ -14,6 +14,7 @@ export const ProtectedLayout = () => {
     <div>
       <AppBar
         pages={[
+          { label: "user", path: "user" },
           { label: "Settings", path: "settings" },
           { label: "Profile", path: "profile" }
         ]}
